@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace ExamPrep
+namespace _1._1._1._3
 {
     class Program
     {
         static void Main(string[] args)
         {
-            new Thread(CountToTen).Start();
-            CountToTen();
+            new Thread(() => CountTo(10)).Start();
         }
-
-        private static void CountToTen()
+        static void CountTo(int limit)
         {
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= limit; i++)
             {
                 Console.WriteLine(i);
             }

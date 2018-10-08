@@ -4,21 +4,26 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace ExamPrep
+namespace _1._1._1._2
 {
     class Program
     {
         static void Main(string[] args)
         {
-            new Thread(CountToTen).Start();
-            CountToTen();
+            Thread t1 = new Thread(new ThreadStart(CountToTen));
+            Thread t2 = new Thread(new ThreadStart(CountToTen));
+
+            t1.Start();
+            t2.Start();
+
         }
 
-        private static void CountToTen()
+        static void CountToTen()
         {
             for (int i = 1; i <= 10; i++)
             {
                 Console.WriteLine(i);
+                Thread.Sleep(500);
             }
         }
     }

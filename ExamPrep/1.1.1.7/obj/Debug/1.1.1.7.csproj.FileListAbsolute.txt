@@ -1,0 +1,4 @@
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.1.7\bin\Debug\1.1.1.7.exe
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.1.7\bin\Debug\1.1.1.7.pdb
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.1.7\obj\Debug\1.1.1.7.exe
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.1.7\obj\Debug\1.1.1.7.pdb
