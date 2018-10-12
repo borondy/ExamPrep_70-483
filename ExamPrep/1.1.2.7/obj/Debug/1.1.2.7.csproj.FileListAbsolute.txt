@@ -1,0 +1,6 @@
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.7\bin\Debug\1.1.2.7.exe.config
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.7\bin\Debug\1.1.2.7.exe
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.7\bin\Debug\1.1.2.7.pdb
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.7\obj\Debug\1.1.2.7.csprojResolveAssemblyReference.cache
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.7\obj\Debug\1.1.2.7.exe
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.7\obj\Debug\1.1.2.7.pdb

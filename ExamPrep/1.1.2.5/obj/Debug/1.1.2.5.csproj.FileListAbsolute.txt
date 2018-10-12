@@ -1,0 +1,5 @@
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.5\bin\Debug\1.1.2.5.exe.config
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.5\bin\Debug\1.1.2.5.exe
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.5\bin\Debug\1.1.2.5.pdb
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.5\obj\Debug\1.1.2.5.exe
+C:\Users\hunor.borondy\Documents\GitHub\ExamPrep_70-483\ExamPrep\1.1.2.5\obj\Debug\1.1.2.5.pdb
