@@ -1,0 +1,6 @@
+C:\Users\Hunor\Source\Repos\ExamPrep_70-483\ExamPrep\2.1.6\bin\Debug\2.1.6.exe.config
+C:\Users\Hunor\Source\Repos\ExamPrep_70-483\ExamPrep\2.1.6\bin\Debug\2.1.6.exe
+C:\Users\Hunor\Source\Repos\ExamPrep_70-483\ExamPrep\2.1.6\bin\Debug\2.1.6.pdb
+C:\Users\Hunor\Source\Repos\ExamPrep_70-483\ExamPrep\2.1.6\obj\Debug\2.1.6.csproj.CoreCompileInputs.cache
+C:\Users\Hunor\Source\Repos\ExamPrep_70-483\ExamPrep\2.1.6\obj\Debug\2.1.6.exe
+C:\Users\Hunor\Source\Repos\ExamPrep_70-483\ExamPrep\2.1.6\obj\Debug\2.1.6.pdb
