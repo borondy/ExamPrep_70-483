@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
@@ -16,11 +17,19 @@ namespace _2._1._11
 
             XmlSerializer xmlSerializer = new XmlSerializer(person.GetType());
 
+            StringWriter stringWriter = new StringWriter();
+
+            xmlSerializer.Serialize(stringWriter, person);
+
+            Console.WriteLine(stringWriter.GetStringBuilder().ToString());
+
+            Console.ReadKey();
+
         }
     }
 
     [Serializable]
-    class Person
+    public class Person
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
