@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.Serialization;
 
 namespace ConsoleApp.Models
 {
@@ -19,13 +21,49 @@ namespace ConsoleApp.Models
     }
     public class MusicTrack
     {
-        public string Artist { get; set; }
+        // public Artist Artist { get; set; }
+        public int ArtistID { get; set; }
         public string Title { get; set; }
         public int LengthInSeconds { get; set; }
         public MusicTrack()
         {
             
         }
+
+        public static List<MusicTrack> GetListOfMusicTracks()
+        {
+            Random random= new Random(21);
+            string[] titles={"Anna", "Highway to hell", "Porszem", "Ez az a hely", "akarmi", "valami mas",
+                        "This is rock", "fourSeason"};
+
+            int[] artistIDs={1,2,3,4};
+
+            List<MusicTrack>musicTracks= new List<MusicTrack>();
+            foreach (string title in titles)
+            {
+                var m= new MusicTrack();
+                m.Title=title;
+                m.ArtistID=artistIDs[random.Next(4)];
+                m.LengthInSeconds=random.Next(60,350);
+                musicTracks.Add(m);
+            }
+            return musicTracks;
+        }
+    }
+
+    [Serializable]
+    public class Artist
+    {
+        public string Name { get; set; }
+        public int ID { get; set; }
+
+        public static List<Artist> GetListOfArtists()=> new List<Artist>()
+            {
+                new Artist{Name="Rednex", ID=1 },
+                new Artist{Name="BBB", ID=2},
+                new Artist{Name="Vivaldi", ID=3},
+                new Artist{Name="AcidDC", ID=4}
+            };
     }
 
     
@@ -198,6 +236,54 @@ namespace ConsoleApp.Models
         {
             return this.Result.CompareTo(other);
         }
+    }
+
+    public class ParentClass
+    {
+        internal virtual void InternalVirtualVoid()=>System.Console
+        .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name}");
+        public virtual void PublicVirtualVoid()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name}");
+        protected virtual void ProtectedVirtualVoid()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name} written from the Parent");
+        public void PublicVoid()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name} written from the Parent");
+        protected void ProtectedVoid()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name}");
+        private void PrivateVoid()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name}");  
+
+        public virtual void VoidToOverrideByChild()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name} written from the Parent");  
+        public ParentClass()
+        {
+            // InternalVirtualVoid();
+            // PublicVirtualVoid();
+            // ProtectedVirtualVoid();
+            // PublicVoid();
+            // ProtectedVoid();
+            // PrivateVoid();
+        }          
+    }
+    
+    public class ChildClass:ParentClass
+    {
+        public ChildClass()
+        {
+            // InternalVirtualVoid();
+            // PublicVirtualVoid();
+            // ProtectedVirtualVoid();
+            // PublicVoid();
+            // ProtectedVoid();
+            // // PrivateVoid();
+        }
+
+        public new void PublicVoid()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name} written from the child.");  
+        
+        public override void VoidToOverrideByChild()=>System.Console
+            .WriteLine($"Type: {this.GetType().Name} MethodName: {MethodInfo.GetCurrentMethod().Name} written from the child.");  
+
     }
 
     public class Parent

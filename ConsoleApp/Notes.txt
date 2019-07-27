@@ -1,3 +1,5 @@
+?
+    ICollection vs IList
 Things to look videos about:
     Cryptography
     Hashing
@@ -7,16 +9,62 @@ Things to do:
         cast to child/parent
             check> 
                 accessibility
-                new
-                override
+                new                 new hides ((parent)child.Run()=> the child will run)
+                override            override does not hide ((parent)child.Run()=> parent will run)
     Create an XML file with LinQ
         query elements and atributes
 
     Create a list of artists and musicTracks
         query with joins
+            QUERY Syntax
+                from track in tracks
+                join artist in artists on track.ArtistID equals artist.ID select new...
+
+            MethodSyntax
+                tracks.Join(artists,t=>t.ArtistID, a=>a.ID, (t,a)=>new {....})
+
+    Serialize something
+        to Binary
+        to XML
+
+    Create some fake processor app and add performance monitor for it
+        CountOfProcessedThings
+        ProcessedThingsPerSecond...
+
+    Create an IntArrayWrapper() class
+        - IEnumerable<int> -- ICollection<int> 
+        - indexer
+        - IEnumerator<int>
+        - IDisposable --(nothing really intresting only the dispose pattern)
+        - ToString()
 
 
 Things to know:
+    Tasks created with Task.Run() have the TaskCreationOptions.DenyChildAttach option set, so they can't have any attached child task
+    Threads vs Tasks
+        Threads run as foreground processes
+        Trheads have priorities
+        Thread cannot deliver result to another Thread (use shared variables)
+        No continuation threads provide method called join (pause till the other completes)
+        Threads don't provide aggregated exceptions (must handle locally)
+
+    Thread.Join
+        t1.Join() --> The execution continues after the t1 completes     
+
+    ThreadPool.QueueUserWorkItem(state=>Action) 
+        The WaitCallback delegate needs a state parameter
+
+    ThreadPool 
+        threads are background threads
+        cannot change priority
+        local state variables are not cleared
+        
+    volatile int x;
+        The compiler won't do any optimalization with the x variables
+        This means the compiler leaves the order of the actions
+        The x won't be cached to the processor, it will be taken always from the 
+        memory
+
     For loop
         initialize
         test 
@@ -355,33 +403,41 @@ Things to know:
         internal void OnDeserializing(StreamingContext ctx)
         { Style="unknown"}  
     ////
+    XMLSserializer
+        XmlSerializer(typeof(MusicDataStore))=> must contain the type 
+        References will be serialized for each data
+            =>when deserializing, each object will have it's own reference
+                    it can cause issues (foreing key case ... 
+                                            each musicTrack will point to its own Author, 
+                                            even if the Author is the same
+                                        )
 
-    
+    DataContractSerializer
+        Can be used to serialize to XML
+        Differences between this and XML serializer:
+            [DataContract] => apply to class
+            [DataMember] => only serialized 
+            It doesn't allows the modification of the order of datamembers 
+                by serialization (the XML serializer lets this)        
+        DataContractSerializer serializer= new DataContractSerializer(typeof(MusicTrack));
+        serializer.WriteObject(...)
 
+    Arrays
+        int[] ints= new int[]{1,2,3};
+        int[] ints= {1,2,3,4};
+        .Length => returns the elements of the first dimension!!!!!
+        .CopyTo(destinatin, indexFrom)
 
+    ArrayList
+        can be extended (can grow ans sink)
+        holds reference to objects
 
+    List and Arrays are providing Sort() but the Dictionary not!
 
-Tasks created with Task.Run() have the TaskCreationOptions.DenyChildAttach option set, so they can't have any attached child task
-Threads vs Tasks
-    Threads run as foreground processes
-    Trheads have priorities
-    Thread cannot deliver result to another Thread (use shared variables)
-    No continuation threads provide method called join (pause till the other completes)
-    Threads don't provide aggregated exceptions (must handle locally)
+    HashSet (like a distinct set)
+        IsSubsetOf...
+        .RemoveWhereh(x=>...)
 
-Thread.Join
-    t1.Join() --> The execution continues after the t1 completes     
+    Dictionary
+        .Remove(1)=> removes the item with the key 1
 
-ThreadPool.QueueUserWorkItem(state=>Action) 
-    The WaitCallback delegate needs a state parameter
-
-ThreadPool 
-    threads are background threads
-    cannot change priority
-    local state variables are not cleared
-    
-volatile int x;
-    The compiler won't do any optimalization with the x variables
-    This means the compiler leaves the order of the actions
-    The x won't be cached to the processor, it will be taken always from the 
-    memory

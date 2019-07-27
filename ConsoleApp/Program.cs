@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Threading;
 using System.Threading.Tasks;
@@ -73,9 +74,106 @@ namespace ConsoleApp
             //     var result=await GetWebPageContentWithHTTPClientAsync();
             //     System.Console.WriteLine(result);
             // }).Wait();
-            System.Console.WriteLine(GetImageOfDay().Result.url);
+            // System.Console.WriteLine(GetImageOfDay().Result.url);
+            // ArrayCountTester();
+            // HierarchyTest();
+            // LinQQuerySyntax();
+            BinarySerializingDemo();
+        }
+
+        private static void BinarySerializingDemo()
+        {
+            BinaryFormatter formatter= new BinaryFormatter();
+            var artists=Artist.GetListOfArtists();
+            using ( FileStream fs = new FileStream("data.bin",FileMode.OpenOrCreate,FileAccess.Write) )
+            {
+                formatter.Serialize(fs,artists);
+            }
+
+            List<Artist> artistList;
+            using (FileStream fs= new FileStream("data.bin",FileMode.Open,FileAccess.Read))
+            {
+                artistList=(List<Artist>)formatter.Deserialize(fs);
+            }
+            System.Console.WriteLine(artistList.Count);
+        }
+
+        private static void LinQQuerySyntax()
+        {
+            List<MusicTrack> tracks=MusicTrack.GetListOfMusicTracks();
+            List<Artist> artists=Artist.GetListOfArtists();
+
+            var listOfTracksAndMusics=
+                from track in tracks 
+                join artist in artists on track.ArtistID equals artist.ID
+                select new 
+                {ArtistName= artist.Name, Title=track.Title, Length=track.LengthInSeconds};
+            
+            var listOfTracksAndMusicsWithMethodSyntax=
+                tracks.Join(
+                        artists,
+                        t=>t.ArtistID,
+                        a=>a.ID,
+                (t,a)=> new{
+                    ArtistName= a.Name, Title=t.Title, Length=t.LengthInSeconds
+                });
+
+            var artistsOnTracksJoin=artists.Join(tracks,a=>a.ID, t=>t.ArtistID,(a,t)=>new {
+                Artist=a.Name, Title=t.Title, Length=t.LengthInSeconds
+            });
+
+            var artistsOnTracksJoinWithQuery=from artist in artists
+                                             join track in tracks 
+                                             on artist.ID equals track.ArtistID
+                                             select new {
+                                                        Artist=artist.Name,
+                                                        Title=track.Title,
+                                                        Length=track.LengthInSeconds
+                                                        };
+            
+            foreach (var track in listOfTracksAndMusics)
+            {
+                System.Console.WriteLine($"Artist:{track.ArtistName}; Title: {track.Title}({track.Length})");
+            }
+            System.Console.WriteLine("//////////////////////////////////////////////////");
+            foreach (var track in listOfTracksAndMusicsWithMethodSyntax)
+            {
+                System.Console.WriteLine($"Artist:{track.ArtistName}; Title: {track.Title}({track.Length})");
+            }
+        }
+
+        private static void HierarchyTest()
+        {
+            ParentClass parentClass=new ParentClass();
+            ChildClass child=new ChildClass();
+            System.Console.WriteLine("ParentClass says: ");
+            parentClass.PublicVoid();
+            parentClass.VoidToOverrideByChild();
+            System.Console.WriteLine("ChildClass says: ");
+            child.PublicVoid();
+            child.VoidToOverrideByChild();
+            parentClass=child;
+            System.Console.WriteLine("Child as Parent says:");
+            parentClass.PublicVoid();
+            parentClass.VoidToOverrideByChild();
+        }
+
+        private static void ArrayCountTester()
+        {
+            int [,] ints= new int[3,4];
+            int [][] ints2= new int[3][];
+
+            ints2[0]=new int[]{1,2,3};
+            ints2[1]=new int[4]{1,2,3,4};
+            ints2[2]=new int[4]{1,2,3,4};
+            
+            System.Console.WriteLine($"The length of int[3,4]= {ints.Length.ToString()}");
+            System.Console.WriteLine($"The length of int[3][]= {ints2.Length.ToString()}");
+            
+
 
         }
+
         private static async Task<ImageOfDay> GetImageOfDay(string imageURL="https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=2019-07-26")
         {
             string NASAJson=await Task<string>.Run(async ()=>{
@@ -212,21 +310,21 @@ namespace ConsoleApp
 
         private static void SerializeXML()
         {
-            MusicTrack track= new MusicTrack(){Artist="Belga", Title="1-2-3" , LengthInSeconds=180};
+            // MusicTrack track= new MusicTrack(){Artist="Belga", Title="1-2-3" , LengthInSeconds=180};
 
-            XmlSerializer musicTrackSerializer= new XmlSerializer(typeof(MusicTrack));
-            TextWriter serWriter=new StringWriter();
-            musicTrackSerializer.Serialize(serWriter,track);
-            serWriter.Close();
-            string trackXML=serWriter.ToString();
-            System.Console.WriteLine("Track XML:");
-            System.Console.WriteLine(trackXML);
+            // XmlSerializer musicTrackSerializer= new XmlSerializer(typeof(MusicTrack));
+            // TextWriter serWriter=new StringWriter();
+            // musicTrackSerializer.Serialize(serWriter,track);
+            // serWriter.Close();
+            // string trackXML=serWriter.ToString();
+            // System.Console.WriteLine("Track XML:");
+            // System.Console.WriteLine(trackXML);
 
-            TextReader serReader=new StringReader(trackXML);
-            MusicTrack trackRead=musicTrackSerializer.Deserialize(serReader) as MusicTrack;
+            // TextReader serReader=new StringReader(trackXML);
+            // MusicTrack trackRead=musicTrackSerializer.Deserialize(serReader) as MusicTrack;
 
-            System.Console.WriteLine("Read back: ");
-            System.Console.WriteLine($"{trackRead.Artist},{trackRead.Title},{trackRead.LengthInSeconds}");
+            // System.Console.WriteLine("Read back: ");
+            // System.Console.WriteLine($"{trackRead.Artist},{trackRead.Title},{trackRead.LengthInSeconds}");
 
         }
         
