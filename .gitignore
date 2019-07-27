@@ -4,3 +4,7 @@
 
 /.vs
 /ExamPrep/.vs/ExamPrep/v15
+*/[bB]in
+*/[Oo]bj
+*/.vscode
+*/[Oo]bj

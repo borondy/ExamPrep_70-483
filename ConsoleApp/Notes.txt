@@ -1,0 +1,387 @@
+Things to look videos about:
+    Cryptography
+    Hashing
+
+Things to do:
+    Create a hierarchy
+        cast to child/parent
+            check> 
+                accessibility
+                new
+                override
+    Create an XML file with LinQ
+        query elements and atributes
+
+    Create a list of artists and musicTracks
+        query with joins
+
+
+Things to know:
+    For loop
+        initialize
+        test 
+        process {}
+        update (iterator)
+    break exits
+    continue continues with the next
+    && is the short circuit version of th & 
+
+    Events:
+        The order of the subscribers execution is not garanteed 
+        The subscribers are called on the same thread as the publisher is running
+        GetInvocationList
+        OnAlarmRaised?.Invoke();
+    
+    delegate:
+        delegate int Calculate(int a, int b)
+    
+    Built in delegates:
+        Action, Actin<string>
+        Func<int,int,int> ...
+        Predicate<int> dividesByThree=(i)=>i%3==0
+
+    Environment.FailFast
+        The finally block wont run
+
+    Exceptions:
+        throw will throw with the original stack trace
+        throw ex will throw with a new stack trace
+        throw new Exception("message",ex); => original exception is passed as innerexception
+
+    Structs
+        methods
+        data values
+        properties
+        constructors
+            must initialize all data members
+            can't have parameterless constructor 
+                (but it has one default, which sets all the values to the default)
+            can't be inherited
+            they are constructed in the stack
+    
+    Enums 
+        cw(Days.Monday)=> outputs Monday
+
+    Memory Allocation:
+        value types => stack
+        reference types=> heap
+
+    Generic Filters
+        where T: class
+        where T: Struct
+        where T: new()
+        where T: Animal
+        where T: IAnimal
+        Where T: unmanaged -> must NOT be a reference type or conatin any members which are reference types
+
+    Static constructor:
+        this is called once before the creation of the very first instance of the class
+        use when you wan't to initialize the resources which you will need to create the new instances
+
+    Constructor execution:
+        1. any static members 
+        2. any static constructor
+        3. the constructor
+
+    Extension methods
+        public static int LineCount(this String str) ...
+        can't be used to replace an existing method
+
+    Optional parameters
+        must be after the non optional ones
+    
+    indexer:
+        public int this[int i]
+        {get return array[i];}
+        {set array[i]=value;}
+
+    override methods
+        only methods marked with VIRTUAL can be overriden in child classes
+        the c# doesn't leave to override explicit interface implementations
+
+    casting
+        only requires if there is a possible data loss float x; int y= (int) x
+
+    default access modifiers:
+        members will be private
+
+    access modifiers:
+        private > reachable from the class only
+        protected > reachable from the child classes also
+        internal > reachable in the assembly in which it is declared
+        readonly > can be set on declaration, or by the constructor
+
+    abstract 
+        Only abstract class can contain abstract members
+
+    hierarchies
+        parent always can be used to reference to child (the reverse is false)
+
+    IComparable
+        CompareTo
+        Less than zero hamarabb van mint a masik
+        zero egy helyen vannak
+        Greater than zero ez koveti a masikat
+    IEnumerable
+        IEnumerator GetEnumerator
+    IEnumerable<T>
+        IEnumerator IEnumerable<T>.GetEnumerator
+    IEnumerator<T>
+        Current
+        Reset
+        MoveNext
+        Dispose
+    IDisposable
+    IUnknown
+
+    Reflection
+        typeof(IInterface).IsAssignableFrom(type)... 
+        az adott interface alkalmazva van e az adott typeon 
+
+    dispose vs finalizer
+        the dispose you can call
+        the finalization you can't call
+        SuppressFinalizer > finalizer elnyomása
+        GC.Collect()
+        GC.WaitForPendingFinalizers();
+        GC.SuppressFinalize(p) => GC.ReRegisterForFinalize(p)
+
+    JSON
+        private propertyes [JsonProperty]
+        dont need the [Serializable] attribute
+    
+    XMLSerializer
+        Only public data
+        Must have parameterless constructor
+        deserialization returns an object (cast... or as)
+
+    DataContractSerializer
+        Not only public data
+
+    ArrayList
+        Untyped collection
+
+    LinkedList
+        a lot of insertion and deletion
+        work trogh a large list of items ...
+
+    StringCollection/StringList ... 
+
+    RegEx
+        + => one or more times the previous item
+        . => match any character
+        [ch-ch] => any charachter in that range
+        $ =>anchor this to the end of string
+        ^ => start of a line
+        | => or
+        \b => start at word boundary
+        {0,3} => from zero to 3 occurences
+
+    Converts:
+        int.Parse => throws exception if null or invalid
+        int.TryParse => false if null or invalid
+        Convert.ToInt32=> exception if invalid... if null it returns the default value
+
+    DES->AES: symmetric standards
+
+    AES
+        ICryptoTransform
+        //using MemoryStream
+        using CryptoStream
+        using StreamWriter -> A streamwriter a cryptostreambe ir, ami a memorystreamet hasznalja, 
+            tehat amikor a streamwriter.write tortenik, a cryptostreamen keresztul irodik a 
+            titkositani kivant dolgunk a memoryStreambe
+
+    RSA asymmetric
+        RSA works on byte ArrayList (ASCIIEncoding converter.... converter.GetBytes(plainText))
+        RSACryptoServiceProvider rsaEncrypt (has private and pulic key)
+        rsaEncrypt.FromXMLString(privateKey) (load the private key from xml)
+        rsaEncrypt.Encrypt(bytesToEncrypt, fOAEP:false) (rOAEP padding ...)
+
+    KeyStorages:
+        CspParameters csp= new CspParameters(); (UserLevel)
+        csp.Flags=CspProviderFlags.UseMachineKeyStore... (machine level)
+        PersistKeyInCsp=false (to delete from the keystore)
+        
+    certificate:
+        makecert democert.cer => creates an X.509 (test pourpose) certificate
+        makecert -n "CN=Name" -sr currentuser -ss demoCertStore 
+
+    SHA1
+        20byte
+    SHA2
+        224-256-384-512 bit...
+        vulnerable to length extension attacks
+
+    StrongNames
+        version checking only takes place if the assembly has strong name
+        strong-named assembly can only be used in an application with other strong-named assemblies
+        can be loaded to the GAC
+        strong-named assembly has a unique name that is generated using the private key when the 
+            assembly is signed
+        cmd.exe sn 
+        a strong-named assembly contains the public key that can be used to validate its signature
+        cmd.exe ildasm can show it (also the sn)
+        Fully qualified name
+            assembly'name + culture of the assembly+ public key token + version number
+            (can view using the assembly.FullName property)
+
+    WinRT tzpes
+        Only WinRT types can be used
+        No Generics
+        Only implement Windows Runtime interfaces
+        Class can only derive from WinRT class
+        Public classes must be sealed
+        Public structs can contain only public values or strings
+        Namespace must match with the name of the assembly
+
+    Preprocessor
+        prevent the compiler to compile the content
+
+    [Conditional("DEBUG)] => prevents the call
+    [Obsolete("message")]=>warning 
+
+    #warning
+    #error
+    #pragma warning disable => It can be used with a specific warning code (#pragma warning disable CS1998)
+    #pragma warning enable
+
+    #line 1 "filename.cs"
+        throw new Exception("Bang")
+    #line default
+        When te program runs, it displays the stacktrace for the exception that includes the
+        filename and the number set using the #line directive
+
+    #line hidden
+        the debugger will not step through these statements
+        ....
+    #line default    
+
+    [DebuggerStepThrough]
+
+    PDB (program debug database file)
+        symbol file (alias)
+        generated each time with matching GUID with the executable
+        (cmd) pdbcopy => can be used to remove the private PDB elements
+
+    Debug.WriteLine... - Debug.WriteLineIf()...        
+        if not compiled in debug the statements are not included
+
+    Trace.WeiteLine... Trace.WriteLineIf()
+        Trace.TraceError... Trace.TraceWarning... Trace.TraceInformation
+
+    Debug.Assert(!string.IsNullOrWhiteSpace(name));
+        while debuging there is an option to continue
+    
+    Use TraceSwitch to control output
+        TraceSwitch ts.... ts.TraceLevel.warning
+        if(ts.TraceError)... if(ts.TraceWarning)...
+
+    TraceSource ... 
+        TraceSource trace....
+        SourceSwitch sourceSwitch...
+        sourceSwitch.Level=SourceLevels.Information
+        trace.Switch=sourceSwitch...
+
+    TraceSource 
+        from .config file
+            TraceSource trace= new TraceSource("traceNameFromConfig")
+
+    Write to EventLog
+        EventLog.SourceExists("name")
+        EventLog.CreateEventSourse("categoryName","logName")
+        loadedEventLog= new EventLog();
+        loadedEventLog.Source="categoryName"
+        
+    FileMode Enums 
+        Append (if not exists, create it, only with writing)
+        Create (creates a new, if the file exists overwrites it)
+        CreateNew (if already exits exception will be thrown)
+        Open (exception if not exists)
+        OpenOrCreate 
+        Truncate (for writing, and remove everything)
+
+    FileAccess
+        Read
+        ReadWrite
+        Write
+
+    Database connections
+        using(SqlConnection conn...)
+            conn.Open()
+            SqlCommand command(select..., conn)
+            SqlDataReader reader=   command.ExecuteReader();
+            while(reader.Read())
+                ...
+        connection>command>reader>(processing the reader result)
+    ExecuteReader()
+    ExecuteNonQuery()
+    command.Parameters.AddWithValue("@paramName", paramValue);
+
+    Web Services
+        [ServiceContract](interface) [OperationContract](method) => denote that the interface and method are exposed
+
+    LinQ
+        var artistSummary= from track in musicTracks
+                            group track by track.ArtistID
+                            into artistTrackSummary
+                            select new {ID=artistTrackSummary.Key, Count=artistTrackSummary.Count()}
+        IEnumerable A, IEnumerable B,
+        A.Join(B,a=>a.orderID, b=>b.orderID, a,b)...
+
+    ReadXML with LinQ
+        var doc=XDocument.Parse(XML...)
+        doc.Descandants("valami").Where(e=>...)
+
+    Binary serialization
+        [Serializable]  MUST have
+        BinaryFormatter formatter...
+        formatter.Serialize <-> (TargetType)formatter.Deserialize(inputStream)
+        [NonSerialized]
+        ___SERIALIZES PRIVATE MEMBERS BY DEFAULT____
+    ISerializable
+        GetObjectData(SerializationInfo, StreamingContext)
+        constructor for deserialization(SerializationInfo info, StreamingContext ctx)
+                        {info.AddValue("name", Name)} //example only
+    [OnSerializing()][OnSerialized()]           
+    
+    ///sample for optional field and the dederialization of it
+    ///used to maintain the capability to work with serialized objects
+    ///where the optional datafield was not present before (this is a new field)
+        [OptionalField]
+        public string Style
+
+        [OnDeserializing()]
+        internal void OnDeserializing(StreamingContext ctx)
+        { Style="unknown"}  
+    ////
+
+    
+
+
+
+
+Tasks created with Task.Run() have the TaskCreationOptions.DenyChildAttach option set, so they can't have any attached child task
+Threads vs Tasks
+    Threads run as foreground processes
+    Trheads have priorities
+    Thread cannot deliver result to another Thread (use shared variables)
+    No continuation threads provide method called join (pause till the other completes)
+    Threads don't provide aggregated exceptions (must handle locally)
+
+Thread.Join
+    t1.Join() --> The execution continues after the t1 completes     
+
+ThreadPool.QueueUserWorkItem(state=>Action) 
+    The WaitCallback delegate needs a state parameter
+
+ThreadPool 
+    threads are background threads
+    cannot change priority
+    local state variables are not cleared
+    
+volatile int x;
+    The compiler won't do any optimalization with the x variables
+    This means the compiler leaves the order of the actions
+    The x won't be cached to the processor, it will be taken always from the 
+    memory
